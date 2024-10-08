@@ -1,5 +1,6 @@
 import './assets/css/App.css'
 import { Countries } from './pages/countries/Countries'
+import { Characters } from './pages/characters/Characters'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Home } from './pages/home/Home'
 import { Session } from './pages/session/Session'
@@ -14,6 +15,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />}>
             <Route index element={<div>Dashboard Home</div>} />
             <Route path="countries" element={<Countries />} />
+            <Route path="characters" element={<Characters />} />
           </Route>
           <Route path='/home' element={<Home />}/>
           <Route path='/session' element={<Session />}/>

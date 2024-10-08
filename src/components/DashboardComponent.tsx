@@ -8,7 +8,7 @@ export const Dashboard = () => {
       {/* Sidebar */}
       <div className="hidden lg:flex lg:flex-shrink-0">
         <div className="flex w-64 flex-col">
-          <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+          <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
             <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-zinc-900 px-6 pb-4">
               <div className="flex flex-shrink-0 items-center px-4">
                 <img className="h-15 w-auto" src={Logo} alt="Your Company" />
