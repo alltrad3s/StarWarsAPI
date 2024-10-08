@@ -1,5 +1,6 @@
-import { Outlet } from 'react-router-dom';
-import { Navigation } from './NavigationComponent';
+import { Outlet } from 'react-router-dom'
+import { Navigation } from './NavigationComponent'
+import Logo from '../assets/images/SWAPI.png'
 
 export const Dashboard = () => {
   return (
@@ -7,10 +8,10 @@ export const Dashboard = () => {
       {/* Sidebar */}
       <div className="hidden lg:flex lg:flex-shrink-0">
         <div className="flex w-64 flex-col">
-          <div className="flex min-h-0 flex-1 flex-col bg-custom-purple">
-            <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
+          <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+            <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-zinc-900 px-6 pb-4">
               <div className="flex flex-shrink-0 items-center px-4">
-                <img className="h-8 w-auto" src="https://cdn-knihf.nitrocdn.com/ibKONdxVNJApfXYlVVFSuGXgWUgPJrvN/assets/images/optimized/rev-826ee6b/kodigowebstorage.blob.core.windows.net/kodigowebsite/2023/11/Full-Stack-Jr@4x-1.webp" alt="Your Company" />
+                <img className="h-15 w-auto" src={Logo} alt="Your Company" />
               </div>
               <Navigation />
             </div>

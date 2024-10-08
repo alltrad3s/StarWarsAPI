@@ -14,8 +14,8 @@ export const Navigation = () => {
                 to="/dashboard"
                 className={`group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 ${
                   location.pathname === '/dashboard'
-                    ? 'bg-indigo-700 text-white'
-                    : 'text-indigo-200 hover:bg-indigo-700 hover:text-white'
+                    ? 'bg-zinc-700 text-amber-300'
+                    : 'text-amber-300 hover:bg-zinc-700 hover:text-white'
                 }`}
               >
                 <svg className="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
@@ -29,8 +29,8 @@ export const Navigation = () => {
                 to="/dashboard/countries"
                 className={`group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 ${
                   location.pathname === '/dashboard/countries'
-                    ? 'bg-indigo-700 text-white'
-                    : 'text-indigo-200 hover:bg-indigo-700 hover:text-white'
+                    ? 'bg-zinc-700 text-amber-300'
+                    : 'text-amber-300 hover:bg-zinc-700 hover:text-white'
                 }`}
               >
                 <svg className="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">

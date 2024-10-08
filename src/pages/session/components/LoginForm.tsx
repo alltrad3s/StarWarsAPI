@@ -37,7 +37,7 @@ export const LoginForm = () => {
 
   return (
     <>
-        <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">Login</h2><br />
+        <h2 className="mt-2 text-2xl font-bold leading-9 tracking-tight text-gray-900">Login</h2><br />
         <form onSubmit={handleSubmit(onSubmitForm)} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
@@ -62,12 +62,12 @@ export const LoginForm = () => {
             </div>
 
             <div className="text-sm leading-6">
-              <a href="#" className="font-semibold text-custom-purple hover:text-indigo-500">Forgot password?</a>
+              <a href="#" className="font-semibold text-amber-400 hover:text-amber-600">Forgot password?</a>
             </div>
           </div>
 
           <div>
-            <button type="submit" className="flex w-full justify-center rounded-md bg-custom-purple px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+            <button type="submit" className="flex w-full justify-center rounded-md bg-zinc-900 px-3 py-1.5 text-sm font-semibold leading-6 text-amber-300 shadow-sm hover:bg-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
           </div>
         </form>
     </>
