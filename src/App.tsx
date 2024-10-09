@@ -6,6 +6,9 @@ import { Home } from './pages/home/Home'
 import { Session } from './pages/session/Session'
 import { UserProvider } from './context/UserDataContext'
 import { Dashboard } from './components/DashboardComponent'
+import { Planets } from './pages/planets/Planets'
+import { Starships } from './pages/starships/Starships'
+import { Films } from './pages/films/Films'
 
 function App() {
   return (
@@ -16,6 +19,10 @@ function App() {
             <Route index element={<div>Dashboard Home</div>} />
             <Route path="countries" element={<Countries />} />
             <Route path="characters" element={<Characters />} />
+            <Route path="planets" element={<Planets />} />
+            <Route path="starships" element={<Starships />} />
+            <Route path="films" element={<Films />} />
+
           </Route>
           <Route path='/home' element={<Home />}/>
           <Route path='/session' element={<Session />}/>
