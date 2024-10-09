@@ -1,3 +1,4 @@
+import React from 'react';
 import * as yup from 'yup'
 import {useForm} from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -6,38 +7,33 @@ import { auth } from '../../../firebase/config'
 import { IUser } from '../../../models/IUser';
 
 const schema = yup.object().shape({
-    email: yup.string().required("Email is required").
-    email("Email is not valid. ex: user@domain.tld"),
+    email: yup.string().required("Email is required").email("Email is not valid. ex: user@domain.tld"),
     password: yup.string().required("Password is mandatory").min(8,"Password has to be at least 8 characters long"),
     confirmPassword: yup.string().oneOf([yup.ref('password')], "Password must be the same")
 })
 
-export const RegisterForm = () => {
-    const {register,handleSubmit, formState:{errors}} = useForm({
+interface RegisterFormProps {
+  onRegisterSuccess: () => void;
+}
+
+export const RegisterForm: React.FC<RegisterFormProps> = ({ onRegisterSuccess }) => {
+    const {register, handleSubmit, formState:{errors}} = useForm({
         resolver: yupResolver(schema)
     }); 
 
-    const onSubmitForm = (data:IUser) => {
-        //console.log(data);
-
-        createUserWithEmailAndPassword(auth, data.email, data.password)
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        .then((userCredential) => {
-            // Signed in 
-            //const user = userCredential.user;
-            // ...
-        })
-        .catch((error) => {
-            //const errorCode = error.code;
-            const errorMessage = error.message;
-            console.error(errorMessage);
-        });
+    const onSubmitForm = async (data: IUser) => {
+        try {
+            await createUserWithEmailAndPassword(auth, data.email, data.password);
+            onRegisterSuccess();
+        } catch (error) {
+            console.error("Registration error:", error);
+        }
     }
 
-  return (
-    <>
-        <h2 className="mt-2 text-2xl font-bold leading-9 tracking-tight text-gray-900">Register</h2><br />
-        <form onSubmit={handleSubmit(onSubmitForm)} className="space-y-2">
+    return (
+        <>
+          <h2 className="mt-2 text-2xl font-bold leading-9 tracking-tight text-gray-900">Register</h2><br />
+          <form onSubmit={handleSubmit(onSubmitForm)} className="space-y-2">
           <div>
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                 <div className="mt-2">

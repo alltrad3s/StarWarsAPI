@@ -1,28 +1,37 @@
 import './assets/css/App.css'
-import { Countries } from './pages/countries/Countries'
 import { Characters } from './pages/characters/Characters'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Home } from './pages/home/Home'
 import { Session } from './pages/session/Session'
 import { UserProvider } from './context/UserDataContext'
 import { Dashboard } from './components/DashboardComponent'
+import { AuthProvider } from './context/AuthContext'
+import { FavoritesProvider } from './context/FavoritesContext'
+import { ProtectedRoute } from './components/ProtectedRoute'
+import { Favorites } from './pages/favorites/Favorites'
 
 function App() {
   return (
-    <UserProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/dashboard" element={<Dashboard />}>
-            <Route index element={<div>Dashboard Home</div>} />
-            <Route path="countries" element={<Countries />} />
-            <Route path="characters" element={<Characters />} />
-          </Route>
-          <Route path='/home' element={<Home />}/>
-          <Route path='/session' element={<Session />}/>
-          <Route path='*' element={<div>Not Found</div>} />
-        </Routes>
-      </BrowserRouter>
-    </UserProvider>
+    <AuthProvider>
+      <UserProvider>
+        <FavoritesProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/session" element={<Session />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/dashboard" element={<Dashboard />}>
+                  <Route index element={<div>Dashboard Home</div>} />
+                  <Route path="characters" element={<Characters />} />
+                  <Route path="favorites" element={<Favorites />} />
+                </Route>
+              </Route>
+              <Route path='*' element={<Navigate to="/" replace />} />
+            </Routes>
+          </BrowserRouter>
+        </FavoritesProvider>
+      </UserProvider>
+    </AuthProvider>
   )
 }
 
