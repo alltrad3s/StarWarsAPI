@@ -12,13 +12,13 @@ const people = [
     name: 'Jorge',
     role: 'Developer',
     imageUrl: JorgeImage,
-    linkedinUrl: 'https://www.linkedin.com/in/jorge-profile/',
+    linkedinUrl: 'https://www.linkedin.com/in/jdiaz1302/',
   },
   {
     name: 'Judith',
     role: 'Developer',
     imageUrl: JudithImage,
-    linkedinUrl: 'https://www.linkedin.com/in/judith-profile/',
+    linkedinUrl: 'https://www.linkedin.com/in/judith-ar%C3%A9valo-0b8487187/',
   },
 ];
 

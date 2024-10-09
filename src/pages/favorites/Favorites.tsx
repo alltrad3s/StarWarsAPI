@@ -1,7 +1,8 @@
 import React from 'react';
 import { useFavorites } from '../../context/FavoritesContext';
 import { ListCharacters } from '../characters/components/ListCharacters';
-import { IPerson, IFilm, IPlanet, IStarship } from '../../models/IStarWarsData';
+import { IPerson } from '../../models/IStarWarsData';
+{/*import { IPerson, IFilm, IPlanet, IStarship } from '../../models/IStarWarsData'; //Uncomment when films, planet and starships are enabled*/}
 
 export const Favorites: React.FC = () => {
   const { favorites, addFavorite, removeFavorite, isFavorite } = useFavorites();
