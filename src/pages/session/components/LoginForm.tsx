@@ -26,7 +26,7 @@ export const LoginForm = () => {
             // Signed in 
             const user = userCredential.user;
             console.log(user); //Para ver credenciales y probar.
-            navigate('/dashboard/countries')
+            navigate('/dashboard')
         })
         .catch((error) => {
             //const errorCode = error.code;

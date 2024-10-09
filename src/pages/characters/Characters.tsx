@@ -4,6 +4,7 @@ import { ListCharacters } from "./components/ListCharacters";
 import { LoadingComponent } from "../../components/LoadingComponent";
 import { IPerson, IFilm, IPlanet, IStarship } from '../../models/IStarWarsData';
 import { useInView } from 'react-intersection-observer';
+import { useFavorites } from '../../context/FavoritesContext';
 
 type PersonWithImage = IPerson & { imageUrl?: string };
 
@@ -18,6 +19,8 @@ export const Characters: React.FC = () => {
   const { data: films } = useStarWarsData<IFilm>('films');
   const { data: planets } = useStarWarsData<IPlanet>('planets');
   const { data: starships } = useStarWarsData<IStarship>('starships');
+
+  const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 
   const [ref, inView] = useInView({
     threshold: 0,
@@ -42,12 +45,19 @@ export const Characters: React.FC = () => {
     });
   }, [characters, filmFilter, planetFilter, starshipFilter]);
 
+  const handleToggleFavorite = (character: IPerson) => {
+    if (isFavorite(character)) {
+      removeFavorite(character);
+    } else {
+      addFavorite(character);
+    }
+  };
+
   return (
     <div className="mx-auto max-w-7xl">
       <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Star Wars Characters</h2>
       <p className="mt-1 text-sm leading-6 text-gray-500">Explore characters from the Star Wars universe.</p>
-      
-      <form className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+       <form className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Character Name</label>
           <input
@@ -108,7 +118,11 @@ export const Characters: React.FC = () => {
       
       <div className="mt-8">
         {error && <p className="text-red-500">Error: {error}</p>}
-        <ListCharacters characters={filteredCharacters} />
+        <ListCharacters 
+          characters={filteredCharacters} 
+          onToggleFavorite={handleToggleFavorite}
+          isFavorite={isFavorite}
+        />
         {loading && <LoadingComponent />}
         <div ref={ref} style={{ height: '20px' }}></div>
       </div>

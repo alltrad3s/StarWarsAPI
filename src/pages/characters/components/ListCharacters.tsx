@@ -5,9 +5,11 @@ type PersonWithImage = IPerson & { imageUrl?: string };
 
 interface ListCharactersProps {
   characters: PersonWithImage[];
+  onToggleFavorite: (character: IPerson) => void;
+  isFavorite: (character: IPerson) => boolean;
 }
 
-export const ListCharacters: React.FC<ListCharactersProps> = ({ characters }) => {
+export const ListCharacters: React.FC<ListCharactersProps> = ({ characters, onToggleFavorite, isFavorite }) => {
   return (
     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {characters.map((character) => (
@@ -25,6 +27,14 @@ export const ListCharacters: React.FC<ListCharactersProps> = ({ characters }) =>
                 </span>
               </dd>
             </dl>
+            <button
+              onClick={() => onToggleFavorite(character)}
+              className={`mt-4 px-4 py-2 border rounded-md ${
+                isFavorite(character) ? 'bg-yellow-500 text-white' : 'bg-white text-gray-700'
+              }`}
+            >
+              {isFavorite(character) ? 'Remove from Favorites' : 'Add to Favorites'}
+            </button>
           </div>
         </li>
       ))}

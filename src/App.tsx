@@ -26,12 +26,9 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />}>
                   <Route index element={<div>Dashboard Home</div>} />
                   <Route path="characters" element={<Characters />} />
-                
-                  {/* rutas agregadar */}
                   <Route path="planets" element={<Planets />} />
                   <Route path="starships" element={<Starships />} />
                   <Route path="films" element={<Films />} />
-
                   <Route path="favorites" element={<Favorites />} />
                 </Route>
               </Route>
