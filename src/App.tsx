@@ -9,6 +9,9 @@ import { AuthProvider } from './context/AuthContext'
 import { FavoritesProvider } from './context/FavoritesContext'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { Favorites } from './pages/favorites/Favorites'
+import { Planets } from './pages/planets/Planets'
+import { Starships } from './pages/starships/Starships'
+import { Films } from './pages/films/Films'
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />}>
                   <Route index element={<div>Dashboard Home</div>} />
                   <Route path="characters" element={<Characters />} />
+                  <Route path="planets" element={<Planets />} />
+                  <Route path="starships" element={<Starships />} />
+                  <Route path="films" element={<Films />} />
                   <Route path="favorites" element={<Favorites />} />
                 </Route>
               </Route>
