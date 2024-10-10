@@ -5,9 +5,11 @@ type PlanetWithImage = IPlanet & { imageUrl?: string };
 
 interface ListPlanetsProps {
   planets: PlanetWithImage[];
+  onToggleFavorite: (planet: IPlanet) => void;
+  isFavorite: (planet: IPlanet) => boolean;
 }
 
-export const ListPlanets: React.FC<ListPlanetsProps> = ({ planets }) => {
+export const ListPlanets: React.FC<ListPlanetsProps> = ({ planets, onToggleFavorite, isFavorite }) => {
   return (
     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {planets.map((planet) => (
@@ -25,6 +27,14 @@ export const ListPlanets: React.FC<ListPlanetsProps> = ({ planets }) => {
                 </span>
               </dd>
             </dl>
+            <button
+              onClick={() => onToggleFavorite(planet)}
+              className={`mt-4 px-4 py-2 border rounded-md ${
+                isFavorite(planet) ? 'bg-yellow-500 text-white' : 'bg-white text-gray-700'
+              }`}
+            >
+              {isFavorite(planet) ? 'Remove from Favorites' : 'Add to Favorites'}
+            </button>
           </div>
         </li>
       ))}

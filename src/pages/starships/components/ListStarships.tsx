@@ -5,9 +5,11 @@ type StarshipWithImage = IStarship & { imageUrl?: string };
 
 interface ListStarshipsProps {
   starships: StarshipWithImage[];
+  onToggleFavorite: (starship: IStarship) => void;
+  isFavorite: (starship: IStarship) => boolean;
 }
 
-export const ListStarships: React.FC<ListStarshipsProps> = ({ starships }) => {
+export const ListStarships: React.FC<ListStarshipsProps> = ({ starships, onToggleFavorite, isFavorite }) => {
   return (
     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {starships.map((starship) => (
@@ -25,6 +27,14 @@ export const ListStarships: React.FC<ListStarshipsProps> = ({ starships }) => {
                 </span>
               </dd>
             </dl>
+            <button
+              onClick={() => onToggleFavorite(starship)}
+              className={`mt-4 px-4 py-2 border rounded-md ${
+                isFavorite(starship) ? 'bg-yellow-500 text-white' : 'bg-white text-gray-700'
+              }`}
+            >
+              {isFavorite(starship) ? 'Remove from Favorites' : 'Add to Favorites'}
+            </button>
           </div>
         </li>
       ))}

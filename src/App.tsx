@@ -12,6 +12,7 @@ import { Favorites } from './pages/favorites/Favorites'
 import { Planets } from './pages/planets/Planets'
 import { Starships } from './pages/starships/Starships'
 import { Films } from './pages/films/Films'
+import { Dash } from './pages/dash/Dash'
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
               <Route path="/session" element={<Session />} />
               <Route element={<ProtectedRoute />}>
                 <Route path="/dashboard" element={<Dashboard />}>
-                  <Route index element={<div>Dashboard Home</div>} />
+                  <Route index element={<Dash />} />
                   <Route path="characters" element={<Characters />} />
                   <Route path="planets" element={<Planets />} />
                   <Route path="starships" element={<Starships />} />

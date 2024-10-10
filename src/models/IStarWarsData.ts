@@ -38,6 +38,8 @@ export interface IPlanet extends IStarWarsData {
     terrain: string;
     surface_water: string;
     population: string;
+    residents: string[];
+    films: string[];
 }
 
 export interface IStarship extends IStarWarsData {

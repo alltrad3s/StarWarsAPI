@@ -1,12 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
-import { IPerson } from '../models/IStarWarsData';
+import { IPerson, IPlanet, IFilm, IStarship } from '../models/IStarWarsData';
+
+type FavoriteItem = IPerson | IPlanet | IFilm | IStarship;
 
 interface FavoritesContextType {
-  favorites: IPerson[];
-  addFavorite: (character: IPerson) => void;
-  removeFavorite: (character: IPerson) => void;
-  isFavorite: (character: IPerson) => boolean;
+  favorites: FavoriteItem[];
+  addFavorite: (item: FavoriteItem) => void;
+  removeFavorite: (item: FavoriteItem) => void;
+  isFavorite: (item: FavoriteItem) => boolean;
 }
 
 const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
@@ -20,7 +22,7 @@ export const useFavorites = () => {
 };
 
 export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [favorites, setFavorites] = useState<IPerson[]>([]);
+  const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -34,9 +36,12 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   }, [user]);
 
-  const addFavorite = (character: IPerson) => {
+  const addFavorite = (item: FavoriteItem) => {
     setFavorites((prev) => {
-      const newFavorites = [...prev, character];
+      if (prev.some(fav => fav.url === item.url)) {
+        return prev; // Item already in favorites, don't add it again
+      }
+      const newFavorites = [...prev, item];
       if (user) {
         localStorage.setItem(`favorites_${user.uid}`, JSON.stringify(newFavorites));
       }
@@ -44,9 +49,9 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     });
   };
 
-  const removeFavorite = (character: IPerson) => {
+  const removeFavorite = (item: FavoriteItem) => {
     setFavorites((prev) => {
-      const newFavorites = prev.filter((fav) => fav.url !== character.url);
+      const newFavorites = prev.filter((fav) => fav.url !== item.url);
       if (user) {
         localStorage.setItem(`favorites_${user.uid}`, JSON.stringify(newFavorites));
       }
@@ -54,8 +59,8 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     });
   };
 
-  const isFavorite = (character: IPerson) => {
-    return favorites.some((fav) => fav.url === character.url);
+  const isFavorite = (item: FavoriteItem) => {
+    return favorites.some((fav) => fav.url === item.url);
   };
 
   return (
