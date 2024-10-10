@@ -55,4 +55,6 @@ export interface IStarship extends IStarWarsData {
     hyperdrive_rating: string;
     MGLT: string;
     starship_class: string;
+    films: string[];
+    pilots: string[];
 }
