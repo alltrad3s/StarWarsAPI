@@ -5,6 +5,8 @@ import { auth } from '../../../firebase/config'
 import { signInWithEmailAndPassword, UserCredential } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom'
 import { IUser } from '../../../models/IUser'
+import ReCAPTCHA from "react-google-recaptcha";
+import { useState } from 'react';
 
 const schema = yup.object().shape({
     email: yup.string().required("Email is required").
@@ -18,8 +20,17 @@ export const LoginForm = () => {
     }); 
 
     const navigate = useNavigate();
+    const [captchaValue, setCaptchaValue] = useState<string | null>(null);
+
+    const handleCaptchaChange = (value: string | null) => {
+        setCaptchaValue(value);
+    };
 
     const onSubmitForm = (data:IUser) => {
+        if (!captchaValue) {
+            console.error("Please complete the reCAPTCHA");
+            return;
+        }
         console.log(data);
         signInWithEmailAndPassword(auth, data.email, data.password)
         .then((userCredential:UserCredential   ) => {
@@ -66,8 +77,13 @@ export const LoginForm = () => {
             </div>
           </div>
 
+          <ReCAPTCHA
+            sitekey="6Le5ymIqAAAAAKG-pMOEyjWx797qOAMsdrrDoaxe"
+            onChange={handleCaptchaChange}
+          />
+
           <div>
-            <button type="submit" className="flex w-full justify-center rounded-md bg-zinc-900 px-3 py-1.5 text-sm font-semibold leading-6 text-amber-300 shadow-sm hover:bg-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+            <button type="submit" disabled={!captchaValue} className="flex w-full justify-center rounded-md bg-zinc-900 px-3 py-1.5 text-sm font-semibold leading-6 text-amber-300 shadow-sm hover:bg-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
           </div>
         </form>
     </>

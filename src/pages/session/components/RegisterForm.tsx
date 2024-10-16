@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as yup from 'yup'
 import {useForm} from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../../firebase/config'
 import { IUser } from '../../../models/IUser';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const schema = yup.object().shape({
     email: yup.string().required("Email is required").email("Email is not valid. ex: user@domain.tld"),
@@ -21,7 +22,17 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onRegisterSuccess })
         resolver: yupResolver(schema)
     }); 
 
+    const [captchaValue, setCaptchaValue] = useState<string | null>(null);
+
+    const handleCaptchaChange = (value: string | null) => {
+        setCaptchaValue(value);
+    };
+
     const onSubmitForm = async (data: IUser) => {
+        if (!captchaValue) {
+            console.error("Please complete the reCAPTCHA");
+            return;
+        }
         try {
             await createUserWithEmailAndPassword(auth, data.email, data.password);
             onRegisterSuccess();
@@ -59,14 +70,18 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onRegisterSuccess })
           </div>
 
           <div className="flex items-center justify-between">
-
             <div className="text-sm leading-6">
               <a href="#" className="font-semibold text-amber-400 hover:text-amber-600">Forgot password?</a>
             </div>
           </div>
 
+          <ReCAPTCHA
+            sitekey="6Le5ymIqAAAAAKG-pMOEyjWx797qOAMsdrrDoaxe"
+            onChange={handleCaptchaChange}
+          />
+
           <div>
-            <button type="submit" className="flex w-full justify-center rounded-md bg-zinc-900 px-3 py-1.5 text-sm font-semibold leading-6 text-amber-400 shadow-sm hover:bg-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+            <button type="submit" disabled={!captchaValue} className="flex w-full justify-center rounded-md bg-zinc-900 px-3 py-1.5 text-sm font-semibold leading-6 text-amber-400 shadow-sm hover:bg-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign up</button>
           </div>
         </form>
     </>
